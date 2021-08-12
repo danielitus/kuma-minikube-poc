@@ -4,28 +4,40 @@
 # https://github.com/kumahq/kuma-demo/blob/master/kubernetes/README.md
 # https://www.youtube.com/watch?v=_3y_4A9qdKU
 
+```shell
 kcp=kuma-cp
 k1=kuma-01
 k2=kuma-02
+```
 
 # Clean clusters
+```shell
 minikube delete -p $kcp
 minikube delete -p $k1
 minikube delete -p $k2
+```
 
 # install
-#cd ~; curl -L https://kuma.io/installer.sh | sh -
+```shell
+cd ~; curl -L https://kuma.io/installer.sh | sh -
+```
 
 # Control Plane
+```shell
 minikube start -p $kcp --driver=hyperkit --kubernetes-version=v1.18.12 --service-cluster-ip-range=10.96.0.0/24 --listen-address=0.0.0.0
+```
 
 # Data Planes
+```shell
 minikube start -p $k1 --driver=hyperkit --kubernetes-version=v1.18.12 --service-cluster-ip-range=10.97.0.0/24 --listen-address=0.0.0.0
 minikube start -p $k2 --driver=hyperkit --kubernetes-version=v1.18.12 --service-cluster-ip-range=10.98.0.0/24 --listen-address=0.0.0.0
+```
 
 # Luego de la corrida de screen hay que entrar en cada session para clavarle la clave del usuario
+```shell
 screen -S $kcp -d -m minikube tunnel -p $kcp; screen -S $k1 -d -m minikube tunnel -p $k1; screen -S $k2 -d -m minikube tunnel -p $k2
-
+```
+```shell
 kubectx $kcp
 cd ~/kuma-1.2.3/bin; ./kumactl install control-plane --mode=global | kubectl apply -f -
 sleep 5
@@ -59,13 +71,17 @@ spec:
   destinations:
     - match:
         kuma.io/service: '*'" | kubectl apply -f -
+ ```
 
 # Configuracion de kumactl para hablar con el CP
+```shell
 kubectx $kcp; cp=$(kubectl get svc -A | grep kuma-control-plane | awk '{print $4":5681"}')
 cd ~/kuma-1.2.3/bin; ./kumactl config control-planes add --name $kcp --overwrite --address http://$cp
 sleep 30
+```
 
 # Configuracion de Data Planes
+```shell
 kubectx $kcp; gzs=$(kubectl get svc -A | grep global-zone-sync | awk '{print $5":5685"}')
 kubectx $k1
 cd ~/kuma-1.2.3/bin;./kumactl install control-plane \
@@ -83,10 +99,13 @@ cd ~/kuma-1.2.3/bin;./kumactl install control-plane \
   --kds-global-address grpcs://$gzs | kubectl apply -f -
 sleep 20
 cd ~/kuma-1.2.3/bin;./kumactl get zones
-
+```
+```shell
 screen -dm bash -c "kubectx kuma-cp; kubectl port-forward svc/kuma-control-plane 5681 -n kuma-system --address 0.0.0.0"
+```
 
 # configurar los data plane proxies para namespace default
+```shell
 kubectx $k1
 echo "apiVersion: v1
 kind: Namespace
@@ -106,8 +125,10 @@ metadata:
   annotations:
     kuma.io/sidecar-injection: enabled
     kuma.io/mesh: default" | kubectl apply -f - && kubectl delete pod --all -n default
+```
 
 # configurar los data plane proxies para namespace kuma-demo
+```shell
 kubectx $k1
 echo "apiVersion: v1
 kind: Namespace
@@ -127,3 +148,4 @@ metadata:
   annotations:
     kuma.io/sidecar-injection: enabled
     kuma.io/mesh: default" | kubectl apply -f - && kubectl delete pod --all -n kuma-demo
+```
