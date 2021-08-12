@@ -1,23 +1,23 @@
 # Kuma Minikube PoC basado en los siguientes links:
-
 - https://kuma.io/docs/1.2.3/deployments/multi-zone/#multi-zone-mode
 - https://github.com/kumahq/kuma-demo/blob/master/kubernetes/README.md
 - https://www.youtube.com/watch?v=_3y_4A9qdKU
 
+# Variables (1 global control plane y 2 k8s clusters)
 ```shell
 kcp=kuma-cp
 k1=kuma-01
 k2=kuma-02
 ```
 
-# Clean clusters
+# Clean clusters en caso de que haya quedado basura anterior
 ```shell
 minikube delete -p $kcp
 minikube delete -p $k1
 minikube delete -p $k2
 ```
 
-# install
+# Kuma install en la máquina que va a correr kumactl (máquina local)
 ```shell
 cd ~; curl -L https://kuma.io/installer.sh | sh -
 ```
