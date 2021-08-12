@@ -1,8 +1,8 @@
-# kuma-minikube-poc
+# Kuma Minikube PoC basado en los siguientes links:
 
-# https://kuma.io/docs/1.2.3/deployments/multi-zone/#multi-zone-mode
-# https://github.com/kumahq/kuma-demo/blob/master/kubernetes/README.md
-# https://www.youtube.com/watch?v=_3y_4A9qdKU
+- https://kuma.io/docs/1.2.3/deployments/multi-zone/#multi-zone-mode
+- https://github.com/kumahq/kuma-demo/blob/master/kubernetes/README.md
+- https://www.youtube.com/watch?v=_3y_4A9qdKU
 
 ```shell
 kcp=kuma-cp
