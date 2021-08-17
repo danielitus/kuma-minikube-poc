@@ -2,7 +2,8 @@
 - https://kuma.io/docs/1.2.3/deployments/multi-zone/#multi-zone-mode
 - https://github.com/kumahq/kuma-demo/blob/master/kubernetes/README.md
 - https://www.youtube.com/watch?v=_3y_4A9qdKU
-
+- https://www.youtube.com/watch?v=vKYQu0r1hDw
+- 
 # Variables (1 global control plane y 2 k8s clusters)
 ```shell
 kcp=kuma-cp
