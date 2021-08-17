@@ -154,6 +154,7 @@ kubectx $k1
 kubectl apply -f https://raw.githubusercontent.com/danielitus/kuma-minikube-poc/main/demo-kuma-01.yaml
 kubectx $k2
 kubectl apply -f https://raw.githubusercontent.com/danielitus/kuma-minikube-poc/main/demo-kuma-02.yaml
+screen -dm bash -c "kubectx kuma-01; kubectl port-forward svc/demo-app 5000 -n kuma-demo --address 0.0.0.0"
 ```
 
 # opcional!! configurar los data plane proxies para namespace kuma-demo
