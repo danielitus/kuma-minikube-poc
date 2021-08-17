@@ -153,7 +153,7 @@ metadata:
 kubectx $k1
 kubectl apply -f https://raw.githubusercontent.com/danielitus/kuma-minikube-poc/main/demo-kuma-01.yaml
 kubectx $k2
-kubectl apply -f https://raw.githubusercontent.com/danielitus/kuma-minikube-poc/main/demo-kuma-01.yaml
+kubectl apply -f https://raw.githubusercontent.com/danielitus/kuma-minikube-poc/main/demo-kuma-02.yaml
 ```
 
 # opcional!! configurar los data plane proxies para namespace kuma-demo
