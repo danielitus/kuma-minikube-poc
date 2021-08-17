@@ -37,9 +37,9 @@ minikube start -p $k2 --driver=hyperkit --kubernetes-version=v1.18.12 --service-
 ```shell
 screen -S $kcp -d -m minikube tunnel -p $kcp; screen -S $k1 -d -m minikube tunnel -p $k1; screen -S $k2 -d -m minikube tunnel -p $k2
 ```
-```shell
 
 # Armado de certificados mTLS para el mesh e instalar un traffic policy con default permitir tráfico
+```shell
 kubectx $kcp
 cd ~/kuma-1.2.3/bin; ./kumactl install control-plane --mode=global | kubectl apply -f -
 sleep 5
