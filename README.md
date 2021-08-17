@@ -148,7 +148,15 @@ metadata:
     kuma.io/mesh: default" | kubectl apply -f - && kubectl delete pod --all -n default
 ```
 
-# configurar los data plane proxies para namespace kuma-demo
+# instalar demo
+```shell
+kubectx $k1
+kubectl apply -f https://raw.githubusercontent.com/danielitus/kuma-minikube-poc/main/demo-kuma-01.yaml
+kubectx $k2
+kubectl apply -f https://raw.githubusercontent.com/danielitus/kuma-minikube-poc/main/demo-kuma-01.yaml
+```
+
+# opcional!! configurar los data plane proxies para namespace kuma-demo
 ```shell
 kubectx $k1
 echo "apiVersion: v1
