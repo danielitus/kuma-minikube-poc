@@ -74,6 +74,24 @@ spec:
   destinations:
     - match:
         kuma.io/service: '*'" | kubectl apply -f -
+        
+echo "apiVersion: kuma.io/v1alpha1
+kind: TrafficRoute
+mesh: default
+metadata:
+  name: route-all-default
+spec:
+  sources:
+    - match:
+        kuma.io/service: '*'
+  destinations:
+    - match:
+        kuma.io/service: '*'
+  conf:
+    loadBalancer:
+      roundRobin: {}
+    destination:
+      kuma.io/service: '*'" | kubectl apply -f
  ```
 
 # Configuracion de kumactl para hablar con el CP
