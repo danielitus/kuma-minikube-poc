@@ -91,7 +91,7 @@ spec:
     loadBalancer:
       roundRobin: {}
     destination:
-      kuma.io/service: '*'" | kubectl apply -f
+      kuma.io/service: '*'" | kubectl apply -f -
  ```
 
 # Configuracion de kumactl para hablar con el CP
