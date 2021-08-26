@@ -1,0 +1,23 @@
+apiVersion: kuma.io/v1alpha1
+kind: TrafficRoute
+mesh: default
+metadata:
+  name: split-traffic
+spec:
+  sources:
+    - match:
+        kuma.io/service: demo-app_kuma-demo_svc_5000
+  destinations:
+    - match:
+        kuma.io/service: redis_kuma-demo_svc_6379
+  conf:
+    split:
+      - weight: 50
+        destination:
+          kuma.io/service: redis_kuma-demo_svc_6379
+          kuma.io/zone: k1
+      - weight: 50
+        destination:
+          kuma.io/service: redis_kuma-demo_svc_6379
+          kuma.io/zone: k2
+
